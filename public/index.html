@@ -27,10 +27,9 @@ body {
 	pointer-events: auto;
 	margin-top: 12px;
 	padding: 10px 12px;
-	background: rgba(15, 18, 28, 0.88);
-	border: 1px solid rgba(255,255,255,0.12);
+	background: rgba(10, 12, 20, 0.72);
+	border: 1px solid rgba(255,255,255,0.1);
 	border-radius: 8px;
-	max-width: 520px;
 }
 .filter-bar label {
 	display: block;
@@ -79,7 +78,6 @@ body {
 }
 .project-about {
 	pointer-events: auto;
-	margin-top: 12px;
 	max-width: 640px;
 	background: rgba(15, 18, 28, 0.88);
 	border: 1px solid rgba(255,255,255,0.12);
@@ -119,12 +117,26 @@ body {
 .about-body li {
 	margin-bottom: 3px;
 }
+.about-body h1 {
+	margin: 0 0 6px 0;
+	font-size: 18px;
+	font-weight: 600;
+	color: #eee;
+}
+.about-body .intro {
+	margin: 0 0 12px 0;
+	font-size: 13px;
+	color: #aab;
+}
+.about-body .legend {
+	margin-top: 4px;
+}
 .export-bar {
 	pointer-events: auto;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 8px;
-	margin-top: 12px;
+	margin-top: 8px;
 	max-width: 640px;
 }
 .export-bar button {
@@ -138,17 +150,6 @@ body {
 }
 .export-bar button:hover {
 	background: rgba(106, 159, 216, 0.32);
-}
-#ui h1 {
-	margin: 0 0 6px 0;
-	font-size: 18px;
-	font-weight: 600;
-}
-#ui p {
-	margin: 0 0 10px 0;
-	font-size: 13px;
-	color: #aab;
-	max-width: 720px;
 }
 .legend {
 	display: flex;
@@ -197,11 +198,11 @@ body {
 </head>
 <body>
 <div id="ui">
-	<h1>map05171 — 3D isometric log2 fold change bars</h1>
-	<p>Bar height = |log2FC|. Red = up · Blue = down. Data: silver_pathway_areasv1.csv (96 areas).</p>
 	<details class="project-about">
 		<summary>About this project</summary>
 		<div class="about-body">
+			<h1>map05171 — 3D isometric log2 fold change bars</h1>
+			<p class="intro">Bar height = |log2FC|. Red = up · Blue = down. Data: silver_pathway_areasv1.csv (96 areas).</p>
 			<p>
 				This interactive visualization shows differential gene expression from the GEO dataset
 				<strong>GSE251849</strong>, comparing <strong>healthy controls</strong> with individuals with
@@ -223,29 +224,29 @@ body {
 				<li>Muhammad Zuhair</li>
 				<li>Mary Cristina Hernandez Xavier</li>
 			</ul>
+			<div class="legend">
+				<div class="legend-item"><span class="swatch pos"></span> log2FC &gt; 0 (up to 1.68)</div>
+				<div class="legend-item"><span class="swatch neg"></span> log2FC &lt; 0 (down to -2.95)</div>
+			</div>
+			<div class="filter-bar">
+				<label for="pvalue-min">p-value filter (minimum p-value per area)</label>
+				<div class="filter-sliders">
+					<div class="field">
+						<span>Minimum: <strong id="pvalue-min-label"></strong></span>
+						<input type="range" id="pvalue-min" min="0" max="1000" value="0" step="1">
+					</div>
+					<div class="field">
+						<span>Maximum: <strong id="pvalue-max-label"></strong></span>
+						<input type="range" id="pvalue-max" min="0" max="1000" value="1000" step="1">
+					</div>
+				</div>
+				<div class="filter-meta">
+					<span id="pvalue-count"></span>
+					<button type="button" id="pvalue-reset">Clear filter</button>
+				</div>
+			</div>
 		</div>
 	</details>
-	<div class="legend">
-		<div class="legend-item"><span class="swatch pos"></span> log2FC &gt; 0 (up to 1.68)</div>
-		<div class="legend-item"><span class="swatch neg"></span> log2FC &lt; 0 (down to -2.95)</div>
-	</div>
-	<div class="filter-bar">
-		<label for="pvalue-min">p-value filter (minimum p-value per area)</label>
-		<div class="filter-sliders">
-			<div class="field">
-				<span>Minimum: <strong id="pvalue-min-label"></strong></span>
-				<input type="range" id="pvalue-min" min="0" max="1000" value="0" step="1">
-			</div>
-			<div class="field">
-				<span>Maximum: <strong id="pvalue-max-label"></strong></span>
-				<input type="range" id="pvalue-max" min="0" max="1000" value="1000" step="1">
-			</div>
-		</div>
-		<div class="filter-meta">
-			<span id="pvalue-count"></span>
-			<button type="button" id="pvalue-reset">Clear filter</button>
-		</div>
-	</div>
 	<div class="export-bar">
 		<button type="button" id="export-png">Export isometric view (PNG)</button>
 		<button type="button" id="export-svg">Export flat pathway (SVG)</button>
