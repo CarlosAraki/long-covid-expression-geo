@@ -1,15 +1,14 @@
 {
-  "name": "personal-card-astro",
+  "name": "long-covid-expression-geo",
+  "private": true,
   "type": "module",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
+    "build": "node scripts/sync-public.mjs",
+    "dev": "npm run build && serve public -l 4321",
+    "preview": "serve public -l 4321"
   },
-  "dependencies": {
-    "astro": "^4.9.1"
+  "devDependencies": {
+    "serve": "^14.2.4"
   }
 }
