@@ -275,8 +275,11 @@ const MAP_H = 2638.0;
 const ABS_MAX = 2.94623;
 const LOG2_MIN = -2.94623;
 const LOG2_MAX = 1.67722;
-const PVALUE_MIN = 7.38e-05;
-const PVALUE_MAX = 0.989;
+const PVALUE_DATA_MIN = 7.38e-05;
+const PVALUE_DATA_MAX = 0.989;
+const PVALUE_PAD = 0.01e-5;
+const PVALUE_FILTER_MIN = Math.max(0, PVALUE_DATA_MIN - PVALUE_PAD);
+const PVALUE_FILTER_MAX = PVALUE_DATA_MAX + PVALUE_PAD;
 const IMG = 'map05171@2x_20260606_220006.png';
 
 const PLANE_W = 40;
@@ -365,8 +368,8 @@ const pvalueReset = document.getElementById('pvalue-reset');
 const PVALUE_SLIDER_STEPS = 1000;
 
 function sliderToPvalue(step) {
-	const lo = Math.log10(PVALUE_MIN);
-	const hi = Math.log10(PVALUE_MAX);
+	const lo = Math.log10(PVALUE_FILTER_MIN || 1e-12);
+	const hi = Math.log10(PVALUE_FILTER_MAX || 1);
 	const t = step / PVALUE_SLIDER_STEPS;
 	return Math.pow(10, lo + t * (hi - lo));
 }

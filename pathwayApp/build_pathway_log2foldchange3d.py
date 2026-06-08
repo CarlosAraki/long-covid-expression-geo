@@ -432,8 +432,11 @@ const MAP_H = {map_h};
 const ABS_MAX = {abs_max};
 const LOG2_MIN = {log2_min};
 const LOG2_MAX = {log2_max};
-const PVALUE_MIN = {pvalue_min};
-const PVALUE_MAX = {pvalue_max};
+const PVALUE_DATA_MIN = {pvalue_min};
+const PVALUE_DATA_MAX = {pvalue_max};
+const PVALUE_PAD = 0.01e-5;
+const PVALUE_FILTER_MIN = Math.max(0, PVALUE_DATA_MIN - PVALUE_PAD);
+const PVALUE_FILTER_MAX = PVALUE_DATA_MAX + PVALUE_PAD;
 const IMG = '{IMG_PATH}';
 
 const PLANE_W = 40;
@@ -522,8 +525,8 @@ const pvalueReset = document.getElementById('pvalue-reset');
 const PVALUE_SLIDER_STEPS = 1000;
 
 function sliderToPvalue(step) {{
-	const lo = Math.log10(PVALUE_MIN);
-	const hi = Math.log10(PVALUE_MAX);
+	const lo = Math.log10(PVALUE_FILTER_MIN || 1e-12);
+	const hi = Math.log10(PVALUE_FILTER_MAX || 1);
 	const t = step / PVALUE_SLIDER_STEPS;
 	return Math.pow(10, lo + t * (hi - lo));
 }}
